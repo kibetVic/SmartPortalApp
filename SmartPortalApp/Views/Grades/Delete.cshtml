@@ -1,0 +1,54 @@
+﻿@model SmartPortalApp.Models.Grade
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Grades details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Grade Code
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GradeCode)
+        </dd>
+        <dt class = "col-sm-2">
+            Grade Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GradeName)
+        </dd>
+        <dt class="col-sm-2">
+            Created By
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+        <dt class="col-sm-2">
+            Created On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt class="col-sm-2">
+            Modified By
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedById)
+        </dd>
+        <dt class="col-sm-2">
+            Modified On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="GradeId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </form>
+</div>

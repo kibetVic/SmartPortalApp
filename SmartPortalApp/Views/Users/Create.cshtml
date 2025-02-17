@@ -1,0 +1,127 @@
+﻿@model SmartPortalApp.Models.User
+@{
+    Layout = null;
+}
+
+@* @{
+    ViewData["Title"] = "Create";
+} *@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Portal</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLTE/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+    <style>
+        /* Make the container fill the screen */
+        .Signup-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            background-color: #f8f9fa; /* Light background */
+        }
+
+        /* Style the Signup box */
+        .Signup-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+            text-align: center;
+            width: 100%;
+            max-width: 400px; /* Limit maximum width */
+        }
+
+        /* Style the form controls */
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100px;
+            margin: 5px;
+        }
+
+        /* Style for the Sign In prompt to be on one line */
+        .form-check p {
+            display: inline; /* Make <p> element behave like inline */
+            margin-right: 5px; /* Add space between the text and the link */
+        }
+
+        .form-check a.nav-link {
+            display: inline; /* Ensure the link is inline with the text */
+            padding: 0; /* Remove padding from the link */
+            text-decoration: none; /* Optional: Remove underline from the link */
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="Signup-container">
+                <div class="Signup-box">
+                    <h3>Create an Account</h3>
+                    <hr />
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Username" class="control-label">User Name</label>
+                            <input asp-for="Username" class="form-control" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RoleId" class="control-label">Role</label>
+                            <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label">Passord</label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <hr />
+                        <div class="form-check">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <p>Already have account !<a asp-controller="Account" asp-action="Login" class="nav-link">Sign In</a></p> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+   </div>
+
+   @section Scripts {
+       @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   }
+</body>
+</html>

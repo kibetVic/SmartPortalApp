@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var isAuthenticated = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+}
+
+<div>
+    @if (isAuthenticated)
+    {
+        <a href="/Account/Logout">Logout</a>
+    }
+    else
+    {
+        <a href="/Account/Login">Login</a>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model SmartPortalApp.Models.Grade
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>View Grades Details</h3>
+
+<div>
+    <h4>Grades Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Grade Code
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GradeCode)
+        </dd>
+        <dt class = "col-sm-2">
+            Grade Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GradeName)
+        </dd>
+        <dt class="col-sm-2">
+            Created By
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+        <dt class="col-sm-2">
+            Created On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt class="col-sm-2">
+            Modified By
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedById)
+        </dd>
+        <dt class="col-sm-2">
+            Modified On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.GradeId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

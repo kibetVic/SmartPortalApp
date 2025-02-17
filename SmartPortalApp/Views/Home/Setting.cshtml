@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Setting Page";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><strong>Setting Page </strong></h2><br /><br />
+            Hello @User.Identity.Name !, @User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value
+            <a asp-action="logout" asp-controller="account">
+                Logout
+            </a>
+            <br />
+            <br />
+            <h4>Admin role user can only access this page!!</h4>
+        </div>
+    </div>
+</div>

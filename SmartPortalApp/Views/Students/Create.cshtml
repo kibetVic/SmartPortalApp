@@ -1,0 +1,91 @@
+﻿@model SmartPortalApp.Models.Student
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Student Form</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label">User</label>
+                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label">Middle Name</label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="RegistrationNo" class="control-label">Registration Number</label>
+                <input asp-for="RegistrationNo" class="form-control" />
+                <span asp-validation-for="RegistrationNo" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Identity" class="control-label">ID Or BC NUmber</label>
+                <input asp-for="Identity" class="form-control" />
+                <span asp-validation-for="Identity" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="KCSEGrade" class="control-label">Avarage KCSE Grade</label>
+                <input asp-for="KCSEGrade" class="form-control" />
+                <span asp-validation-for="KCSEGrade" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SchoolId" class="control-label">School</label>
+                <select asp-for="SchoolId" class ="form-control" asp-items="ViewBag.SchoolId"></select>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="control-label">Department</label>
+                <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label">Course</label>
+                <select asp-for="CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
+            </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

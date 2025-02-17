@@ -1,0 +1,39 @@
+﻿@model SmartPortalApp.Models.MinimumRequirement
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Edit Minimum Requirement Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MinimumRequirementId" />
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label">Course</label>
+                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinimumRequirementCode" class="control-label">Minimum Requirement Code</label>
+                <input asp-for="MinimumRequirementCode" class="form-control" />
+                <span asp-validation-for="MinimumRequirementCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinimumRequirementName" class="control-label">Minimum Requirement Name</label>
+                <input asp-for="MinimumRequirementName" class="form-control" />
+                <span asp-validation-for="MinimumRequirementName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

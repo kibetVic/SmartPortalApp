@@ -1,0 +1,33 @@
+﻿@model SmartPortalApp.Models.Point
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Points Form</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PointCode" class="control-label">Point code</label>
+                <input asp-for="PointCode" class="form-control" />
+                <span asp-validation-for="PointCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AVGPoint" class="control-label">Avarage Point</label>
+                <input asp-for="AVGPoint" class="form-control" />
+                <span asp-validation-for="AVGPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
