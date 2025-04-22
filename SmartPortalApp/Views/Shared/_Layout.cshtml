@@ -79,7 +79,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            Welcome @User.Identity.Name, @User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value
+                            Welcome @User.Identity!.Name, @User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value
                             <a asp-action="Login" asp-controller="account">
                                 Logout
                             </a>

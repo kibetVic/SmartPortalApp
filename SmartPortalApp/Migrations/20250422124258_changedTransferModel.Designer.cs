@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPortalApp.Data;
 
@@ -11,9 +12,11 @@ using SmartPortalApp.Data;
 namespace SmartPortalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250422124258_changedTransferModel")]
+    partial class changedTransferModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,12 +102,22 @@ namespace SmartPortalApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
 
+                    b.Property<string>("Agriculture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Biology")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BusinessStudies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Chemistry")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CourseCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedById")
@@ -116,6 +129,18 @@ namespace SmartPortalApp.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("English")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KcsMeangrade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kiswahili")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Maths")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,10 +150,12 @@ namespace SmartPortalApp.Migrations
                     b.HasKey("CourseId");
 
                     b.HasIndex("CourseCode")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CourseCode] IS NOT NULL");
 
                     b.HasIndex("CourseName")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CourseName] IS NOT NULL");
 
                     b.HasIndex("DepartmentId");
 
@@ -236,11 +263,9 @@ namespace SmartPortalApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MinimumRequirementCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MinimumRequirementName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ModifiedById")
@@ -254,10 +279,12 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("CourseId");
 
                     b.HasIndex("MinimumRequirementCode")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[MinimumRequirementCode] IS NOT NULL");
 
                     b.HasIndex("MinimumRequirementName")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[MinimumRequirementName] IS NOT NULL");
 
                     b.ToTable("MinimumRequirements");
                 });
@@ -427,6 +454,18 @@ namespace SmartPortalApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
+                    b.Property<string>("Agriculture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Biology")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BusinessStudies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Chemistry")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
@@ -439,24 +478,28 @@ namespace SmartPortalApp.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("English")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Identity")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("KCSEGrade")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kiswahili")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Maths")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModifiedById")
@@ -466,7 +509,6 @@ namespace SmartPortalApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("RegistrationNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SchoolId")
@@ -482,10 +524,12 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("Identity")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Identity] IS NOT NULL");
 
                     b.HasIndex("RegistrationNo")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[RegistrationNo] IS NOT NULL");
 
                     b.HasIndex("SchoolId");
 
@@ -574,6 +618,39 @@ namespace SmartPortalApp.Migrations
                         .IsUnique();
 
                     b.ToTable("TeachingSubjects");
+                });
+
+            modelBuilder.Entity("SmartPortalApp.Models.Transfer", b =>
+                {
+                    b.Property<int>("TransferId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransferId"));
+
+                    b.Property<string>("ApplicationStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuditId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FromCourse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToCourse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TransferId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CourseTransfers");
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.User", b =>
@@ -775,6 +852,17 @@ namespace SmartPortalApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("SmartPortalApp.Models.Transfer", b =>
+                {
+                    b.HasOne("SmartPortalApp.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.User", b =>

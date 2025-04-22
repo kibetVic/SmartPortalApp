@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SmartPortalApp.Models.Transfer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Application</a>
+</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Applications</h3>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr style="font-size:10px">
+                   
+                    <th>
+                        @Html.DisplayNameFor(model => model.FromCourse)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ToCourse)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User!.Username)
+                    </th>
+                  
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplicationStatus)
+                    </th>
+                    
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        View
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="font-size:10px">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FromCourse)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToCourse)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User!.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplicationStatus)
+                        </td>
+                    
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-warning">Details</a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</<div>
+</div>

@@ -23,7 +23,8 @@ namespace SmartPortalApp.Data
         public DbSet<MinimumRequirement> MinimumRequirements { get; set; }
         public DbSet<Point> Points { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<ResultTable> ResultTable { get; set; } 
+        public DbSet<ResultTable> ResultTable { get; set; }
+        public DbSet<Transfer> CourseTransfers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
