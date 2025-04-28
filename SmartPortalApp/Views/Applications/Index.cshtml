@@ -51,6 +51,7 @@
         @foreach (var item in Model)
         {
             <tr style="font-size:10px">
+           
             <td>
                 @Html.DisplayFor(modelItem => item.School.SchoolName)
             </td>
@@ -62,6 +63,22 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+            </td>
+            <td>
+                            @if (!string.IsNullOrEmpty(item.UploadKCSE))
+                            {
+                                <a href="@item.UploadKCSE" target="_blank">
+                                    <img src="@item.UploadKCSE" alt="KCSE" style="height: 30px;" />
+                                </a>
+                            }
+            </td>
+            <td>
+                            @if (!string.IsNullOrEmpty(item.UploadKCPE))
+                            {
+                                <a href="@item.UploadKCPE" target="_blank">
+                                    <img src="@item.UploadKCPE" alt="KCSE" style="height: 30px;" />
+                                </a>
+                            }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReasonForTransfer)

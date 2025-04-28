@@ -24,13 +24,10 @@ namespace SmartPortalApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var applicationDbContext = _context.Applications.Include(a => a.Course).Include(a => a.Department).Include(a => a.School).Include(a => a.Subject).Include(a => a.User);
-
-            //return View(await applicationDbContext.ToListAsync());
             var role = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
             if (role == "STUDENT")
             {
-                int userIden = 0;
+                int userIden=0;
                 var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
                 User? details = new User();
                 if (user != null)
@@ -52,9 +49,9 @@ namespace SmartPortalApp.Controllers
                 ;
                 return View(await applicationDbContext.ToListAsync());
             }
-
+            
+            
         }
-
 
         // GET: Applications/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -80,7 +77,6 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Applications/Create
-
 
         public async Task<IActionResult> Create()
         {
@@ -110,8 +106,8 @@ namespace SmartPortalApp.Controllers
                 }
 
 
-                ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
-                //ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
+                ViewData["CourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
+                ViewData["MyCourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
                 ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
                 ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
@@ -127,6 +123,9 @@ namespace SmartPortalApp.Controllers
 
 
         }
+
+
+
 
 
         //public IActionResult Create()
@@ -150,17 +149,46 @@ namespace SmartPortalApp.Controllers
         {
             application.CreatedById = "Admin";
             application.CreatedOn = DateTime.Now;
+            // Upload folder path (make sure "uploads" folder exists under wwwroot)
+           //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Upload KCSE
+            if (application.UploadKCSEFile != null && application.UploadKCSEFile.Length > 0)
+            {
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(application.UploadKCSEFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await application.UploadKCSEFile.CopyToAsync(stream);
+                }
+
+                application.UploadKCSE = "/uploads/" + uniqueFileName; // Save relative path
+            }
+            // Upload KCPE
+            if (application.UploadKCPEFile != null && application.UploadKCPEFile.Length > 0)
+            {
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(application.UploadKCPEFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await application.UploadKCPEFile.CopyToAsync(stream);
+                }
+
+                application.UploadKCPE = "/uploads/" + uniqueFileName; // Save relative path
+            }
+
                 _context.Add(application);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName", application.CourseId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentName", "DepartmentId", application.DepartmentId);
-            ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName", application.SchoolId);
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName", application.SubjectId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", application.UserId);
-            ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)), application.Status);
-            return View(application);
+            
         }
 
         // GET: Applications/Edit/5
