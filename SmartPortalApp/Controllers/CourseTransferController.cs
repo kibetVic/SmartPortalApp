@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using SmartPortalApp.Data;
 using SmartPortalApp.Models;
+using System.Threading.Tasks;
 
 namespace SmartPortalApp.Controllers
 {
@@ -46,14 +48,30 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Applications/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-   
+
+            int userIden;
+            var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+            User? details = new User();
+            if (user != null)
+            {
+                details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
+                if (details != null)
+                {
+                    userIden = details.UserId;
+                }
+                
+            }
+            var studentDetails = await _context.Students.FirstOrDefaultAsync(i => i.UserId == details!.UserId);
+            var couseDetails = await _context.Courses.FirstOrDefaultAsync(i => i.CourseId == studentDetails!.CourseId); 
+
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+            ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
             ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
             ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
+            ViewData["UserId"] = new SelectList(new [] {details}, "UserId", "Username");
 
             ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
             return View();
@@ -68,20 +86,54 @@ namespace SmartPortalApp.Controllers
         {
             application.AuditId = "Admin";
             application.DateCreated = DateTime.Now;
-            var courseName= await _context.Courses.Where(p=>p.CourseId.ToString()==application.ToCourse).Select(p=>p.CourseName).FirstOrDefaultAsync();
-            if (courseName == null) 
+        
+            int userIden;
+            var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+            User? details = new User();
+            if (user != null)
             {
-                application.FromCourse = courseName;
+                details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
+                if (details != null)
+                {
+                    userIden = details.UserId;
+                }
+
             }
-            var courseName1 = await _context.Courses.Where(p => p.CourseId.ToString() == application.ToCourse).Select(p => p.CourseName).FirstOrDefaultAsync();
-            if (courseName1 == null)
+
+            var studentDetails = await _context.Students.FirstOrDefaultAsync(i => i.UserId == details!.UserId);
+            var couseDetails = await _context.Courses.FirstOrDefaultAsync(i => i.CourseId == studentDetails!.CourseId);
+
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+            ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
+            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
+            ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
+            ViewData["UserId"] = new SelectList(new[] { details }, "UserId", "Username");
+
+
+
+
+
+
+            var existingApplication =await _context.CourseTransfers.FirstOrDefaultAsync(c=>c.UserId==details!.UserId && c.ApplicationStatus=="Pending");
+            if (existingApplication != null)
             {
-                application.ToCourse = courseName1;
+                ModelState.AddModelError("", "You have an existing application pending approval");
+                return View(application);
             }
-           
-            _context.CourseTransfers.Add(application);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            else if (application!.ToCourse == application.ToCourse)
+            {
+                ModelState.AddModelError("", "You cannot transfer to the same course");
+                return View(application);
+            }
+            else
+            {
+                _context.CourseTransfers.Add(application);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+                      
+            
 
         }
 

@@ -46,11 +46,15 @@ namespace SmartPortalApp.Controllers
                 // Log a message to confirm successful user retrieval
                 Console.WriteLine($"User {user.Username} authenticated successfully.");
 
+                var roleName = await _context.Roles.Where(r => r.RoleId == user.RoleId).Select(r => r.RoleName).FirstOrDefaultAsync();
+
                 // Create the identity for the user
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Email, user.Email ?? string.Empty) // Optional: Include email in claims
+                    new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
+                    new Claim(ClaimTypes.Role,roleName?? string.Empty)
+                    // Optional: Include email in claims
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

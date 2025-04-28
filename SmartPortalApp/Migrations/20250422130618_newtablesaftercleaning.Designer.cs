@@ -12,8 +12,8 @@ using SmartPortalApp.Data;
 namespace SmartPortalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250422124258_changedTransferModel")]
-    partial class changedTransferModel
+    [Migration("20250422130618_newtablesaftercleaning")]
+    partial class newtablesaftercleaning
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
