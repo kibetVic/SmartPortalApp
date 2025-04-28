@@ -45,7 +45,7 @@ namespace SmartPortalApp.Controllers
             {
                 // Log a message to confirm successful user retrieval
                 Console.WriteLine($"User {user.Username} authenticated successfully.");
-
+                //create role by assigning claims the name from roles table
                 var roleName = await _context.Roles.Where(r => r.RoleId == user.RoleId).Select(r => r.RoleName).FirstOrDefaultAsync();
 
                 // Create the identity for the user

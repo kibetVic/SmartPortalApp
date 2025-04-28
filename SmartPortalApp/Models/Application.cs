@@ -29,8 +29,8 @@ namespace SmartPortalApp.Models
 
     public enum ApplicationStatus
     {
-        Submitted,
-        Approved,
-        Rejected
+        Submitted
+        //Approved,
+        //Rejected
     }
 }

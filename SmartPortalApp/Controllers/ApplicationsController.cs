@@ -20,11 +20,41 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Applications
+
+
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Applications.Include(a => a.Course).Include(a => a.Department).Include(a => a.School).Include(a => a.Subject).Include(a => a.User);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Applications.Include(a => a.Course).Include(a => a.Department).Include(a => a.School).Include(a => a.Subject).Include(a => a.User);
+
+            //return View(await applicationDbContext.ToListAsync());
+            var role = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+            if (role == "STUDENT")
+            {
+                int userIden = 0;
+                var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+                User? details = new User();
+                if (user != null)
+                {
+                    details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
+                    if (details != null)
+                    {
+                        userIden = details.UserId;
+                    }
+
+                }
+                var applicationDbContext = _context.Applications.Include(a => a.Course).Include(a => a.Department).Include(a => a.School).Include(a => a.Subject).Include(a => a.User)
+               .Where(a => a.User.UserId == userIden);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var applicationDbContext = _context.Applications.Include(a => a.Course).Include(a => a.Department).Include(a => a.School).Include(a => a.Subject).Include(a => a.User)
+                ;
+                return View(await applicationDbContext.ToListAsync());
+            }
+
         }
+
 
         // GET: Applications/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -50,17 +80,66 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Applications/Create
-        public IActionResult Create()
-        {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
-            ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
 
-            ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
-            return View();
+
+        public async Task<IActionResult> Create()
+        {
+            try
+            {
+                int userIden;
+                var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+                User? details = new User();
+                if (user != null)
+                {
+                    details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
+                    if (details != null)
+                    {
+                        userIden = details.UserId;
+                    }
+
+                }
+                var couseDetails = new Course();
+                var studentDetails = await _context.Students.FirstOrDefaultAsync(i => i.UserId == details!.UserId);
+                if (studentDetails != null)
+                {
+                    couseDetails = await _context.Courses.FirstOrDefaultAsync(i => i.CourseId == studentDetails!.CourseId);
+                }
+                else
+                {
+                    ModelState.AddModelError("Student details Missing", "Add Student details");
+                }
+
+
+                ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+                //ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
+                ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
+                ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
+                ViewData["UserId"] = new SelectList(new[] { details }, "UserId", "Username");
+
+                ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+
+
         }
+
+
+        //public IActionResult Create()
+        //{
+        //    ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+        //    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
+        //    ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
+        //    ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
+        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
+
+        //    ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
+        //    return View();
+        //}
 
         // POST: Applications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
