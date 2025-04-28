@@ -143,7 +143,14 @@
                         }
                         @if (@User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value == "ADMIN")
                         {
-
+                            <li class="nav-item">
+                                <a asp-controller="Applications" asp-action="Index" class="nav-link">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <p>
+                                        Applications
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a asp-controller="Students" asp-action="Index" class="nav-link">
                                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>

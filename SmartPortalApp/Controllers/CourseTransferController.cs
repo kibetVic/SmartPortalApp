@@ -20,6 +20,8 @@ namespace SmartPortalApp.Controllers
         // GET: Applications
         public async Task<IActionResult> Index()
         {
+            var userName= @User.Identity!.Name;
+
             var applicationDbContext = _context.CourseTransfers;
             return View(await applicationDbContext.ToListAsync());
         }
@@ -50,31 +52,48 @@ namespace SmartPortalApp.Controllers
         // GET: Applications/Create
         public async Task<IActionResult> Create()
         {
-
-            int userIden;
-            var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
-            User? details = new User();
-            if (user != null)
+            try 
             {
-                details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
-                if (details != null)
+                int userIden;
+                var user = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+                User? details = new User();
+                if (user != null)
                 {
-                    userIden = details.UserId;
+                    details = await _context.Users.FirstOrDefaultAsync(i => i.Username == user);
+                    if (details != null)
+                    {
+                        userIden = details.UserId;
+                    }
+
                 }
-                
+                var couseDetails = new Course();
+                var studentDetails = await _context.Students.FirstOrDefaultAsync(i => i.UserId == details!.UserId);
+                if (studentDetails != null)
+                {
+                    couseDetails = await _context.Courses.FirstOrDefaultAsync(i => i.CourseId == studentDetails!.CourseId);
+                }
+                else 
+                {
+                    ModelState.AddModelError("Student details Missing", "Add Student details");
+                }
+
+
+                    ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+                ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
+                ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
+                ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
+                ViewData["UserId"] = new SelectList(new[] { details }, "UserId", "Username");
+
+                ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
+                return View();
             }
-            var studentDetails = await _context.Students.FirstOrDefaultAsync(i => i.UserId == details!.UserId);
-            var couseDetails = await _context.Courses.FirstOrDefaultAsync(i => i.CourseId == studentDetails!.CourseId); 
+            catch (Exception ex) 
+            {
+                return View(ex.Message);
+            }
 
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
-            ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
-            ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectName");
-            ViewData["UserId"] = new SelectList(new [] {details}, "UserId", "Username");
-
-            ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(ApplicationStatus)));
-            return View();
+        
         }
 
         // POST: Applications/Create

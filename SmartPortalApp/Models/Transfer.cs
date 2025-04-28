@@ -10,6 +10,7 @@ namespace SmartPortalApp.Models
         public int UserId { get; set; }
         public virtual User? User { get; set; }
         public string? ToCourse { get; set; }
+        public string? Reason { get; set; }
         public DateTime DateCreated { get; set; }
         public string? ApplicationStatus { get; set; } = "Pending";
         public string? AuditId { get; set; }
