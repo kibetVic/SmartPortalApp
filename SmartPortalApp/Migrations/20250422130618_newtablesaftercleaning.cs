@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartPortalApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTableDb : Migration
+    public partial class newtablesaftercleaning : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -191,14 +191,46 @@ namespace SmartPortalApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CourseTransfers",
+                columns: table => new
+                {
+                    TransferId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromCourse = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ToCourse = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ApplicationStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuditId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseTransfers", x => x.TransferId);
+                    table.ForeignKey(
+                        name: "FK_CourseTransfers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
                     CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
-                    CourseCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CourseName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CourseName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    KcsMeangrade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Maths = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    English = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Kiswahili = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Chemistry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Biology = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BusinessStudies = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Agriculture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -278,8 +310,8 @@ namespace SmartPortalApp.Migrations
                     MinimumRequirementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    MinimumRequirementCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MinimumRequirementName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MinimumRequirementCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MinimumRequirementName = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -303,15 +335,22 @@ namespace SmartPortalApp.Migrations
                     StudentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegistrationNo = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Identity = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    KCSEGrade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Identity = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    KCSEGrade = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SchoolId = table.Column<int>(type: "int", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
+                    Maths = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    English = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Kiswahili = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Chemistry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Biology = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BusinessStudies = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Agriculture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -400,18 +439,25 @@ namespace SmartPortalApp.Migrations
                 name: "IX_Courses_CourseCode",
                 table: "Courses",
                 column: "CourseCode",
-                unique: true);
+                unique: true,
+                filter: "[CourseCode] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_CourseName",
                 table: "Courses",
                 column: "CourseName",
-                unique: true);
+                unique: true,
+                filter: "[CourseName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_DepartmentId",
                 table: "Courses",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseTransfers_UserId",
+                table: "CourseTransfers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_DepartmentCode",
@@ -451,13 +497,15 @@ namespace SmartPortalApp.Migrations
                 name: "IX_MinimumRequirements_MinimumRequirementCode",
                 table: "MinimumRequirements",
                 column: "MinimumRequirementCode",
-                unique: true);
+                unique: true,
+                filter: "[MinimumRequirementCode] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MinimumRequirements_MinimumRequirementName",
                 table: "MinimumRequirements",
                 column: "MinimumRequirementName",
-                unique: true);
+                unique: true,
+                filter: "[MinimumRequirementName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Points_AVGPoint",
@@ -524,13 +572,15 @@ namespace SmartPortalApp.Migrations
                 name: "IX_Students_Identity",
                 table: "Students",
                 column: "Identity",
-                unique: true);
+                unique: true,
+                filter: "[Identity] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_RegistrationNo",
                 table: "Students",
                 column: "RegistrationNo",
-                unique: true);
+                unique: true,
+                filter: "[RegistrationNo] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_SchoolId",
@@ -594,6 +644,9 @@ namespace SmartPortalApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Applications");
+
+            migrationBuilder.DropTable(
+                name: "CourseTransfers");
 
             migrationBuilder.DropTable(
                 name: "MinimumRequirements");
