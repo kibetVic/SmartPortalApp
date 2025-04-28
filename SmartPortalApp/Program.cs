@@ -5,6 +5,7 @@ using SmartPortalApp.Repositories;
 using SmartPortalApp.Security;
 using SmartPortalApp.Middleware;
 using SmartPortalApp.Services;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
         options.SlidingExpiration = true;
     });
-
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600; // 100MB
+});
 // Add custom cookie authentication events.
 builder.Services.AddScoped<CustomCookieAuthenticationEvents>();
 
