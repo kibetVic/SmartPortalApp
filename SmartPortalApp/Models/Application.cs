@@ -19,7 +19,7 @@ namespace SmartPortalApp.Models
         //public int MinimumRequirementId { get; set; }
         //public virtual MinimumRequirement MinimumRequirement { get; set; }
         public int SubjectId { get; set; }
-        public virtual Subject Subject { get; set; }
+        public virtual Subject Subject { get; set; }        
         public string UploadKCSE { get; set; }
         public string UploadKCPE { get; set; }
         public string ReasonForTransfer { get; set; }

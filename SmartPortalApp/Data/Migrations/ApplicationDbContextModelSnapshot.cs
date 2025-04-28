@@ -88,7 +88,7 @@ namespace SmartPortalApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Course", b =>
@@ -132,7 +132,7 @@ namespace SmartPortalApp.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Department", b =>
@@ -176,7 +176,7 @@ namespace SmartPortalApp.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Grade", b =>
@@ -215,7 +215,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("GradeName")
                         .IsUnique();
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.MinimumRequirement", b =>
@@ -259,7 +259,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("MinimumRequirementName")
                         .IsUnique();
 
-                    b.ToTable("MinimumRequirements");
+                    b.ToTable("MinimumRequirements", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Point", b =>
@@ -298,7 +298,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("PointCode")
                         .IsUnique();
 
-                    b.ToTable("Points");
+                    b.ToTable("Points", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.ResultTable", b =>
@@ -338,7 +338,7 @@ namespace SmartPortalApp.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("ResultTable");
+                    b.ToTable("ResultTable", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Role", b =>
@@ -377,7 +377,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("RoleName")
                         .IsUnique();
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.School", b =>
@@ -416,7 +416,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("SchoolName")
                         .IsUnique();
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Student", b =>
@@ -491,7 +491,7 @@ namespace SmartPortalApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Subject", b =>
@@ -529,7 +529,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("SubjectName")
                         .IsUnique();
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.TeachingSubject", b =>
@@ -573,7 +573,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("TeachingSubjectName")
                         .IsUnique();
 
-                    b.ToTable("TeachingSubjects");
+                    b.ToTable("TeachingSubjects", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.User", b =>
@@ -625,7 +625,7 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Application", b =>
