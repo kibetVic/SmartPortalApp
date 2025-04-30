@@ -78,7 +78,7 @@ namespace SmartPortalApp.Controllers
                 }
 
 
-                ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
+                    ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
                 ViewData["MyCourseId"] = new SelectList(new[] { couseDetails }, "CourseId", "CourseName");
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
                 ViewData["SchoolId"] = new SelectList(_context.Schools, "SchoolId", "SchoolName");

@@ -20,6 +20,8 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Applications
+
+
         public async Task<IActionResult> Index()
         {
             var role = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
