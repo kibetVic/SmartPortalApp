@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPortalApp.Models
 {
@@ -6,13 +7,19 @@ namespace SmartPortalApp.Models
     {
         [Key]
         public int TransferId { get; set; }
-        public string? FromCourse { get; set; }
-        public int UserId { get; set; }
-        public virtual User? User { get; set; }
-        public string? ToCourse { get; set; }
+        public int StudentId { get; set; }
+        public int FromCourseId { get; set; }
+        public int ToCourseId { get; set; }
+        public string? UploadKCSEResult { get; set; }
+        public string? UploadKCPEResult { get; set; }
+        [NotMapped]
+        public IFormFile? UploadKCSEFile { get; set; }
+
+        [NotMapped]
+        public IFormFile? UploadKCPEFile { get; set; }
         public string? Reason { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string? ApplicationStatus { get; set; } = "Pending";
-        public string? AuditId { get; set; }
+        public string? TransferStatus { get; set; }
+        public string? DeanApproval { get; set; }
+        public string? ChairamnApproval { get; set; }
     }
 }

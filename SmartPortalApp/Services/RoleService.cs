@@ -13,7 +13,7 @@ namespace SmartPortalApp.Services
             _context = context;
         }
 
-        public async Task<bool> AddRoleAsync(Role newRole)
+        public async Task<bool> AddRole(Role newRole)
         {
             var existingRole = await _context.Roles
                 .FirstOrDefaultAsync(r => r.RoleCode == newRole.RoleCode || r.RoleName == newRole.RoleName);
@@ -26,6 +26,11 @@ namespace SmartPortalApp.Services
             _context.Roles.Add(newRole);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        internal bool AddRoleAsync(Role role)
+        {
+            throw new NotImplementedException();
         }
     }
 

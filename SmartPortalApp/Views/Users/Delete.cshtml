@@ -1,4 +1,5 @@
-﻿@model SmartPortalApp.Models.User
+﻿@using SmartPortalApp.Models
+@model User
 
 @{
     ViewData["Title"] = "Delete";
@@ -32,30 +33,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Role.RoleName)
-        </dd>
-        <dt class="col-sm-2">
-            Created By
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedById)
-        </dd>
-        <dt class="col-sm-2">
-            Created On
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dt class="col-sm-2">
-            Modified By
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedById)
-        </dd>
-        <dt class="col-sm-2">
-            Modified On
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
     </dl>
     

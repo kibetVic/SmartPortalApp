@@ -32,10 +32,7 @@ namespace SmartPortalApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Role role)
         {
-            role.CreatedById = "Admin";
-            role.CreatedOn = DateTime.Now;
-
-            if (!await _roleService.AddRoleAsync(role))
+            if (!_roleService.AddRoleAsync(role))
             {
                 ModelState.AddModelError("RoleCode", "This Role Code already exists.");
                 ModelState.AddModelError("RoleName", "This Role Name already exists.");
@@ -67,23 +64,7 @@ namespace SmartPortalApp.Controllers
             }
 
             return View(role);
-        }     
-
-        
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(Role role)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        role.CreatedById = "Comp Tech";
-        //        role.CreatedOn = DateTime.Now;
-        //        _context.Add(role);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(role);
-        //}
+        } 
 
         // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -116,9 +97,7 @@ namespace SmartPortalApp.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-                    role.ModifiedById = "Admin";
-                    role.ModifiedOn = DateTime.Now;
+                {                    
                     _context.Update(role);
                     await _context.SaveChangesAsync();
                 }

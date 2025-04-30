@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SmartPortalApp.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartPortalApp.Models
 {
-    public class Role : UserActivity
+    public class Role 
     {
         [Key]
         public int RoleId { get; set; }

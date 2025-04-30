@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SmartPortalApp.Models.Role>
+﻿@using SmartPortalApp.Models
+@model IEnumerable<Role>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,13 +21,7 @@
             </th>
             <th>
                 Role Name
-            </th>
-            <th>
-                Created By
-            </th>
-            <th>
-                Created On
-            </th>
+            </th>            
             <th>
                 Edit
             </th>
@@ -46,12 +41,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedById)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
                <a asp-action="Edit" asp-route-id="@item.RoleId" style="font-size:10px" class="btn btn-primary">Edit</a>

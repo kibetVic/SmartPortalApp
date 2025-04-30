@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartPortalApp.Models;
+using SmartPortalApp.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPortalApp.Data
@@ -14,17 +15,13 @@ namespace SmartPortalApp.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<Application> Applications { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<TeachingSubject> TeachingSubjects { get; set; }
-        public DbSet<MinimumRequirement> MinimumRequirements { get; set; }
-        public DbSet<Point> Points { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<ResultTable> ResultTable { get; set; }
-        public DbSet<Transfer> CourseTransfers { get; set; }
+        public DbSet<CourseSubject> CourseSubjects { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,21 +38,6 @@ namespace SmartPortalApp.Data
                 .WithMany()
                 .HasForeignKey(d => d.SchoolId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Application>()
-            //    .HasOne(d => d.MinimumRequirement)
-            //    .WithMany()
-            //    .HasForeignKey(d => d.MinimumRequirementId);
-
-            //modelBuilder.Entity<Application>()
-            //    .HasOne(a => a.TeachingSubject)
-            //    .WithMany(ts => ts.Applications)
-            //    .HasForeignKey(a => a.TeachingSubjectId);
-
-            //modelBuilder.Entity<TeachingSubject>()
-            //    .HasOne(ts => ts.Course)
-            //    .WithMany(c => c.TeachingSubjects)
-            //    .HasForeignKey(ts => ts.CourseId);
 
             modelBuilder.Entity<Role>()
                  .HasIndex(c => c.RoleCode)
@@ -74,77 +56,32 @@ namespace SmartPortalApp.Data
                 .IsUnique();
 
             modelBuilder.Entity<Course>()
-                 .HasIndex(c => c.CourseCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<Course>()
-                 .HasIndex(c => c.CourseName)
+                 .HasIndex(c => c.Name)
                  .IsUnique();
 
             modelBuilder.Entity<Student>()
-                 .HasIndex(s => s.Identity)
+                 .HasIndex(s => s.Email)
                  .IsUnique();
 
             modelBuilder.Entity<Student>()
-                .HasIndex(s => s.RegistrationNo)
+                .HasIndex(s => s.RegNo)
                 .IsUnique();
 
             modelBuilder.Entity<Department>()
-                 .HasIndex(c => c.DepartmentCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<Department>()
-                 .HasIndex(c => c.DepartmentName)
+                 .HasIndex(c => c.Name)
                  .IsUnique();
 
             modelBuilder.Entity<Grade>()
-                 .HasIndex(c => c.GradeCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<Grade>()
-                 .HasIndex(c => c.GradeName)
-                 .IsUnique();
-
-            modelBuilder.Entity<Point>()
-                 .HasIndex(c => c.PointCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<Point>()
-                 .HasIndex(c => c.AVGPoint)
+                 .HasIndex(c => c.Name)
                  .IsUnique();
 
             modelBuilder.Entity<School>()
-                 .HasIndex(c => c.SchoolCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<School>()
-                 .HasIndex(c => c.SchoolName)
+                 .HasIndex(c => c.Name)
                  .IsUnique();
 
             modelBuilder.Entity<Subject>()
-                 .HasIndex(c => c.SubjectCode)
+                 .HasIndex(c => c.Name)
                  .IsUnique();
-
-            modelBuilder.Entity<Subject>()
-                 .HasIndex(c => c.SubjectName)
-                 .IsUnique();
-
-            modelBuilder.Entity<TeachingSubject>()
-                 .HasIndex(c => c.TeachingSubjectCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<TeachingSubject>()
-                 .HasIndex(c => c.TeachingSubjectName)
-                 .IsUnique();
-
-            modelBuilder.Entity<MinimumRequirement>()
-                 .HasIndex(c => c.MinimumRequirementCode)
-                 .IsUnique();
-
-            modelBuilder.Entity<MinimumRequirement>()
-                 .HasIndex(c => c.MinimumRequirementName)
-                 .IsUnique();
-
         }
     }
 }

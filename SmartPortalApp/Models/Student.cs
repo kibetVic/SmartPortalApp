@@ -3,36 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPortalApp.Models
 {
-    public class Student : UserActivity
+    public class Student
     {
         [Key]
         public int StudentId { get; set; }
-        public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual User? User { get; set; }
-        public string? FirstName { get; set; }
-        public string? MiddleName { get; set; }
-        public string? LastName { get; set; }
-        public string? FullName => $"{FirstName} {MiddleName} {LastName}";
-        public string? RegistrationNo { get; set; }
-        public string? Identity { get; set; }
-        public string? KCSEGrade { get; set; }
-        public int SchoolId { get; set; }
-        [ForeignKey("SchoolId")]
-        public virtual School? School { get; set; }
-        public int DepartmentId { get; set; }
-        [ForeignKey("DepartmentId")]
-        public virtual Department? Department { get; set; }
-        public int CourseId { get; set; }
+        public string? Surname { get; set; }
+        public string? OtherNames { get; set; }
+        public string? RegNo { get; set; }
+        public int CourseId { get; set; }//dropdown
         [ForeignKey("CourseId")]
-        public virtual Course? Course { get; set; }
-
-        public string? Maths { get; set; }
-        public string? English { get; set; }
-        public string? Kiswahili { get; set; }
-        public string? Chemistry { get; set; }
-        public string? Biology { get; set; }
-        public string? BusinessStudies { get; set; }
-        public string? Agriculture { get; set; }
+        public virtual Course? Course{ get; set; }
+        public string? Gender { get; set; }//dropdown
+        public string? Email { get; set; }
+        public string? PhoneNo { get; set; }
     }
 }

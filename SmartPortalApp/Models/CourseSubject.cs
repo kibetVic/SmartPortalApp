@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartPortalApp.NewModels
+namespace SmartPortalApp.Models
 {
-    public class CourseSubjects
+    public class CourseSubject
     {
         [Key]
         public int CourseSubjectsId { get; set; }

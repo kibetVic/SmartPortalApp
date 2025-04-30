@@ -2,11 +2,10 @@
 
 namespace SmartPortalApp.Models
 {
-    public class Grade : UserActivity
+    public class Grade
     {
         [Key]
         public int GradeId { get; set; }
-        public string GradeCode { get; set; }
-        public string GradeName { get; set; }
+        public string? Name { get; set; }
     }
 }

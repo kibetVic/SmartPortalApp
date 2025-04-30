@@ -12,16 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<CourseService>();
-builder.Services.AddScoped<StudentService>();
-builder.Services.AddScoped<DepartmentService>();
-builder.Services.AddScoped<GradeService>();
-builder.Services.AddScoped<MinimumRequirementService>();
-builder.Services.AddScoped<PointService>();
-builder.Services.AddScoped<SchoolService>();
-builder.Services.AddScoped<SubjectService>();
-builder.Services.AddScoped<TeachingSubjectService>();
-builder.Services.AddScoped<RoleService>();
+//builder.Services.AddScoped<CourseService>();
+//builder.Services.AddScoped<StudentService>();
+//builder.Services.AddScoped<DepartmentService>();
+//builder.Services.AddScoped<GradeService>();
+//builder.Services.AddScoped<MinimumRequirementService>();
+//builder.Services.AddScoped<PointService>();
+//builder.Services.AddScoped<SchoolService>();
+//builder.Services.AddScoped<SubjectService>();
+//builder.Services.AddScoped<TeachingSubjectService>();
+//builder.Services.AddScoped<RoleService>();
 
 // Configure database context.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
