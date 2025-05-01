@@ -4,61 +4,68 @@
     ViewData["Title"] = "Create";
 }
 
+
 <h4>Student Detail Form</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label">Sur. Name</label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="OtherNames" class="control-label">Other Names</label>
-                <input asp-for="OtherNames" class="form-control" />
-                <span asp-validation-for="OtherNames" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="RegNo" class="control-label">Registration number</label>
-                <input asp-for="RegNo" class="form-control" />
-                <span asp-validation-for="RegNo" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label">Course</label>
-                <select asp-for="CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label">Gender</label>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Email" class="control-label">Email</label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="PhoneNo" class="control-label">Phone Number</label>
-                <input asp-for="PhoneNo" class="form-control" />
-                <span asp-validation-for="PhoneNo" class="text-danger"></span>
-            </div>
-            </div>
+                 <div class="row">
+                     <div class="col-md-4">
+                     <div class="form-group">
+                        <label asp-for="UserId" class="control-label">User</label>
+                        <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                     </div>
+                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Surname" class="control-label">Sur. Name</label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="OtherNames" class="control-label">Other Names</label>
+                        <input asp-for="OtherNames" class="form-control" />
+                        <span asp-validation-for="OtherNames" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="RegNo" class="control-label">Registration number</label>
+                        <input asp-for="RegNo" class="form-control" />
+                        <span asp-validation-for="RegNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CourseId" class="control-label">Course</label>
+                        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Gender" class="control-label">Gender</label>
+                        <input asp-for="Gender" class="form-control" />
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PhoneNo" class="control-label">Phone Number</label>
+                        <input asp-for="PhoneNo" class="form-control" />
+                        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -69,5 +76,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPortalApp.Data;
 
@@ -11,9 +12,11 @@ using SmartPortalApp.Data;
 namespace SmartPortalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501121548_Tranfer")]
+    partial class Tranfer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,9 +196,6 @@ namespace SmartPortalApp.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("StudentId");
 
                     b.HasIndex("CourseId");
@@ -207,8 +207,6 @@ namespace SmartPortalApp.Migrations
                     b.HasIndex("RegNo")
                         .IsUnique()
                         .HasFilter("[RegNo] IS NOT NULL");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Students");
                 });
@@ -350,15 +348,7 @@ namespace SmartPortalApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartPortalApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SmartPortalApp.Models.Subject", b =>

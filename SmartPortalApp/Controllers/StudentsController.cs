@@ -22,7 +22,7 @@ namespace SmartPortalApp.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Students.Include(s => s.Course);
+            var applicationDbContext = _context.Students.Include(s => s.Course).Include(s => s.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace SmartPortalApp.Controllers
 
             var student = await _context.Students
                 .Include(s => s.Course)
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
@@ -49,6 +50,7 @@ namespace SmartPortalApp.Controllers
         public IActionResult Create()
         {
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -66,6 +68,7 @@ namespace SmartPortalApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Name", student.CourseId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", student.UserId);
             return View(student);
         }
 
@@ -83,6 +86,7 @@ namespace SmartPortalApp.Controllers
                 return NotFound();
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Name", student.CourseId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", student.UserId);
             return View(student);
         }
 
@@ -119,6 +123,7 @@ namespace SmartPortalApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Name", student.CourseId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", student.UserId);
             return View(student);
         }
 
@@ -132,6 +137,7 @@ namespace SmartPortalApp.Controllers
 
             var student = await _context.Students
                 .Include(s => s.Course)
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {

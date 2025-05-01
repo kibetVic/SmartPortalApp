@@ -22,7 +22,8 @@ namespace SmartPortalApp.Controllers
         // GET: Transfers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Transfers.ToListAsync());
+            var applicationDbContext = _context.Transfers.Include(t => t.Student);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Transfers/Details/5
@@ -34,6 +35,7 @@ namespace SmartPortalApp.Controllers
             }
 
             var transfer = await _context.Transfers
+                .Include(t => t.Student)
                 .FirstOrDefaultAsync(m => m.TransferId == id);
             if (transfer == null)
             {
@@ -46,6 +48,7 @@ namespace SmartPortalApp.Controllers
         // GET: Transfers/Create
         public IActionResult Create()
         {
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace SmartPortalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Transfer transfer)
+        public async Task<IActionResult> Create(Transfer transfer)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace SmartPortalApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
             return View(transfer);
         }
 
@@ -78,7 +82,7 @@ namespace SmartPortalApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
             return View(transfer);
         }
 
@@ -114,6 +118,7 @@ namespace SmartPortalApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
             return View(transfer);
         }
 
@@ -126,6 +131,7 @@ namespace SmartPortalApp.Controllers
             }
 
             var transfer = await _context.Transfers
+                .Include(t => t.Student)
                 .FirstOrDefaultAsync(m => m.TransferId == id);
             if (transfer == null)
             {

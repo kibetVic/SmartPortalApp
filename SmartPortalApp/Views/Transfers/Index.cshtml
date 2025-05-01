@@ -15,88 +15,88 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr style="font-size:10px">
-            <th>
-                Student
-            </th>
-            <th>
-                From Course
-            </th>
-            <th>
-                To Course
-            </th>
-            <th>
-                Upload KCSE Result
-            </th>
-            <th>
-                Upload KCPE Result
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reason)
-            </th>
-            <th>
-               Transfer Status
-            </th>
-            <th>
-                Dean Approval
-            </th>
-            <th>
-                Chairman Approval
-            </th>
-            <th>
-                Edit
-            </th>
-            <th>
-                View
-            </th>
-            <th>
-                Delete
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr style="font-size:10px">
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FromCourseId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ToCourseId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadKCSEResult)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadKCPEResult)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransferStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeanApproval)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChairamnApproval)
-            </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-primary">Edit</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-warning">View</a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    <th>
+                        Student
+                    </th>
+                    <th>
+                        From Course
+                    </th>
+                    <th>
+                        To Course
+                    </th>
+                    <th>
+                        Upload KCSE Result
+                    </th>
+                    <th>
+                        Upload KCPE Result
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+                    <th>
+                        Transfer Status
+                    </th>
+                    <th>
+                        Dean Approval
+                    </th>
+                    <th>
+                        Chairman Approval
+                    </th>
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        View
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="font-size:10px">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.StudentId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FromCourseId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToCourseId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadKCSEResult)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UploadKCPEResult)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransferStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeanApproval)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChairamnApproval)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-warning">View</a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 </<div>

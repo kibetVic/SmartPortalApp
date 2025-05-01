@@ -8,13 +8,13 @@ namespace SmartPortalApp.Models
         [Key]
         public int TransferId { get; set; }
         public int StudentId { get; set; }
+        public virtual Student? Student { get; set; }
         public int FromCourseId { get; set; }
         public int ToCourseId { get; set; }
         public string? UploadKCSEResult { get; set; }
         public string? UploadKCPEResult { get; set; }
         [NotMapped]
         public IFormFile? UploadKCSEFile { get; set; }
-
         [NotMapped]
         public IFormFile? UploadKCPEFile { get; set; }
         public string? Reason { get; set; }

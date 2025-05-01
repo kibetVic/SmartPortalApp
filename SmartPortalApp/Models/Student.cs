@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace SmartPortalApp.Models
 {
@@ -7,6 +8,9 @@ namespace SmartPortalApp.Models
     {
         [Key]
         public int StudentId { get; set; }
+        public int UserId { get; set; }
+        [ScaffoldColumn(false)]
+        public virtual User? User { get; set; }
         public string? Surname { get; set; }
         public string? OtherNames { get; set; }
         public string? RegNo { get; set; }
