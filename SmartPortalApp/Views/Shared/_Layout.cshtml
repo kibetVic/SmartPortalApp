@@ -145,10 +145,10 @@
                         @if (@User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value == "ADMIN")
                         {
                             <li class="nav-item">
-                                <a asp-controller="Applications" asp-action="Index" class="nav-link">
+                                <a asp-controller="Transfers" asp-action="Index" class="nav-link">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                     <p>
-                                        Applications
+                                        Transfers
                                     </p>
                                 </a>
                             </li>
@@ -188,27 +188,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-controller="MinimumRequirements" asp-action="Index" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Requirements</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a asp-controller="Grades" asp-action="Index" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Grade</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Points" asp-action="Index" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Points</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="ResultTables" asp-action="Index" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Result Table</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -229,9 +211,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-controller="TeachingSubjects" asp-action="Index" class="nav-link">
+                                        <a asp-controller="CourseSubjects" asp-action="Index" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Teaching Subjects</p>
+                                            <p>Course Subjects</p>
                                         </a>
                                     </li>
                                 </ul>

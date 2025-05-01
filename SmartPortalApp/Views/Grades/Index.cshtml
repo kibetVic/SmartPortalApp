@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SmartPortalApp.Models.Grade>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Gradet</a>
+</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Grade</h3>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr style="font-size:10px">
+            <th>
+                Grade
+            </th>            
+            <th>
+                Edit
+            </th>
+            <th>
+                View
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+  <tbody>
+@foreach (var item in Model) {
+        <tr style="font-size:10px">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GradeId" style="font-size:10px" class="btn btn-primary">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.GradeId" style="font-size:10px" class="btn btn-warning">View</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.GradeId" style="font-size:10px" class="btn btn-danger">Delete</a>
+            </td>          
+        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</<div>
+</div>

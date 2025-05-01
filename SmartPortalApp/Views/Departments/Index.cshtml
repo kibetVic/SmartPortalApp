@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SmartPortalApp.Models.Department>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Department</a>
+</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Department</h3>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr style="font-size:10px">
+            <th>
+                Department Name
+            </th>
+            <th>
+                School
+            </th>           
+            <th>
+                Edit
+            </th>
+            <th>
+                View
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+  <tbody>
+@foreach (var item in Model) {
+        <tr style="font-size:10px">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.School.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DepartmentId" style="font-size:10px" class="btn btn-primary">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.DepartmentId" style="font-size:10px" class="btn btn-warning">View</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.DepartmentId" style="font-size:10px" class="btn btn-danger">Delete</a>
+            </td>          
+        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</<div>
+</div>
