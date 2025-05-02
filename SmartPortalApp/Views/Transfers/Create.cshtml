@@ -13,29 +13,21 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="StudentId" class="control-label">Student</label>
+                        <label asp-for="StudentId" class="control-label">Sur Name</label>
                         <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="StudentId" class="control-label">Student</label>
-                        <input asp-for="StudentId" class="form-control" />
                         <span asp-validation-for="StudentId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="FromCourseId" class="control-label">Current Course</label>
-                        <input asp-for="FromCourseId" class="form-control" />
-                        <span asp-validation-for="FromCourseId" class="text-danger"></span>
+                        <label asp-for="FromCourseId" class="control-label">Current CourseId</label>
+                        <select asp-for="FromCourseId" class="form-control" asp-items="ViewBag.FromCourseId"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="ToCourseId" class="control-label">To Course</label>
-                        <input asp-for="ToCourseId" class="form-control" />
-                        <span asp-validation-for="ToCourseId" class="text-danger"></span>
+                        <label asp-for="ToCourseId" class="control-label">To CourseId</label>
+                        <select asp-for="ToCourseId" class="form-control" asp-items="ViewBag.ToCourseId"></select>
                     </div>
                 </div>
                 <div class="col-md-4">

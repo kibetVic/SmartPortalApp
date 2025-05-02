@@ -14,23 +14,23 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="StudentId" class="control-label">Name</label>
+                        <label asp-for="StudentId" class="control-label">Sur Name</label>
                         <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
                         <span asp-validation-for="StudentId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="StudentId" class="control-label">Student</label>
-                        <input asp-for="StudentId" class="form-control" />
-                        <span asp-validation-for="StudentId" class="text-danger"></span>
+                        <label asp-for="FromCourseId" class="control-label">Current Course</label>
+                        <select asp-for="FromCourseId" class="form-control" asp-items="ViewBag.FromCourseId"></select>
+                        <span asp-validation-for="FromCourseId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="FromCourseId" class="control-label">Current Course</label>
-                        <input asp-for="FromCourseId" class="form-control" />
-                        <span asp-validation-for="FromCourseId" class="text-danger"></span>
+                        <label asp-for="ToCourseId" class="control-label">To course</label>
+                        <select asp-for="ToCourseId" class="form-control" asp-items="ViewBag.ToCourseId"></select>
+                        <span asp-validation-for="ToCourseId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Update" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-warning">Back</a>
             </div>
         </form>

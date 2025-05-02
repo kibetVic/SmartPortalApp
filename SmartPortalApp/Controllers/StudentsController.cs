@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,36 @@ namespace SmartPortalApp.Controllers
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        [Authorize]
+        public class StudentController : Controller
+        {
+            private readonly ApplicationDbContext _context;
+
+            public StudentController(ApplicationDbContext context)
+            {
+                _context = context;
+            }
+
+            public async Task<IActionResult> MyProfile()
+            {
+                var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userIdStr == null)
+                    return Unauthorized();
+
+                int userId = int.Parse(userIdStr);
+
+                var student = await _context.Students
+                    .Include(s => s.User)
+                    .Include(s => s.Course)
+                    .FirstOrDefaultAsync(s => s.UserId == userId);
+
+                if (student == null)
+                    return NotFound("Student record not found.");
+
+                return View(student);
+            }
+        }
 
         public StudentsController(ApplicationDbContext context)
         {

@@ -22,7 +22,7 @@ namespace SmartPortalApp.Controllers
         // GET: Transfers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Transfers.Include(t => t.Student);
+            var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,9 @@ namespace SmartPortalApp.Controllers
             }
 
             var transfer = await _context.Transfers
+                .Include(t => t.FromCourse)
                 .Include(t => t.Student)
+                .Include(t => t.ToCourse)
                 .FirstOrDefaultAsync(m => m.TransferId == id);
             if (transfer == null)
             {
@@ -48,7 +50,9 @@ namespace SmartPortalApp.Controllers
         // GET: Transfers/Create
         public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname");
+            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo");
+            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
             return View();
         }
 
@@ -57,7 +61,7 @@ namespace SmartPortalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Transfer transfer)
+        public async Task<IActionResult> Create( Transfer transfer)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +69,9 @@ namespace SmartPortalApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
+            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
+            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
             return View(transfer);
         }
 
@@ -82,7 +88,9 @@ namespace SmartPortalApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
+            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
+            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
             return View(transfer);
         }
 
@@ -118,7 +126,9 @@ namespace SmartPortalApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Surname", transfer.StudentId);
+            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
+            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
             return View(transfer);
         }
 
@@ -131,7 +141,9 @@ namespace SmartPortalApp.Controllers
             }
 
             var transfer = await _context.Transfers
+                .Include(t => t.FromCourse)
                 .Include(t => t.Student)
+                .Include(t => t.ToCourse)
                 .FirstOrDefaultAsync(m => m.TransferId == id);
             if (transfer == null)
             {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPortalApp.Models
@@ -10,7 +11,13 @@ namespace SmartPortalApp.Models
         public int StudentId { get; set; }
         public virtual Student? Student { get; set; }
         public int FromCourseId { get; set; }
+        [ForeignKey("FromCourseId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public virtual Course? FromCourse { get; set; }
         public int ToCourseId { get; set; }
+        [ForeignKey("ToCourseId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public virtual Course? ToCourse { get; set; }
         public string? UploadKCSEResult { get; set; }
         public string? UploadKCPEResult { get; set; }
         [NotMapped]
