@@ -17,8 +17,15 @@ namespace SmartPortalApp.Models
         public int CourseId { get; set; }//dropdown
         [ForeignKey("CourseId")]
         public virtual Course? Course{ get; set; }
-        public string? Gender { get; set; }//dropdown
+        public int? GenderId { get; set; }//dropdown
         public string? Email { get; set; }
         public string? PhoneNo { get; set; }
+        [NotMapped]
+        public IFormFile? UploadKCPEFile { get; set; }
+        [NotMapped]
+        public IFormFile? UploadKCSEFile { get; set; }
+
+        public string? UploadKCPE { get; set; } // For path saving to DB
+        public string? UploadKCSE { get; set; }
     }
 }

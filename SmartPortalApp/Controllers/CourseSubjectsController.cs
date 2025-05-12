@@ -46,6 +46,9 @@ namespace SmartPortalApp.Controllers
         // GET: CourseSubjects/Create
         public IActionResult Create()
         {
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "Name");
+            ViewData["GradeId"] = new SelectList(_context.Grades, "GradeId", "Name");
             return View();
         }
 

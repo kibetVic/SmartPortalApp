@@ -4,14 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Student</a>
-</p>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Student</h3>
+        <h3 class="card-title">My information</h3>
     </div>
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -33,6 +28,9 @@
                         @Html.DisplayNameFor(model => model.GenderId)
                     </th>
                     <th>
+                        Kcpe 
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
                     <th>
@@ -44,9 +42,7 @@
                     <th>
                         View
                     </th>
-                    <th>
-                        Delete
-                    </th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -63,11 +59,25 @@
                             @Html.DisplayFor(modelItem => item.RegNo)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Course.Name)
+                            @Html.DisplayFor(modelItem => item.Course!.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GenderId)
+                            @((ViewBag.Genders as List<Gender>)?.FirstOrDefault(g => g.GenderId == item.GenderId)?.Name)
+
                         </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.UploadKCPE))
+                            {
+                                <a href="@item.UploadKCPE" target="_blank" title="View KCPE Document">
+                                    <i class="fas fa-file-pdf text-danger"></i> <!-- Font Awesome icon -->
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No file</span>
+                            }
+                        </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
@@ -75,14 +85,12 @@
                             @Html.DisplayFor(modelItem => item.PhoneNo)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.StudentId" style="font-size:10px" class="btn btn-primary">Edit</a>
+                            <a asp-action="EditInformation" asp-route-id="@item.StudentId" style="font-size:10px" class="btn btn-primary">Edit</a>
                         </td>
                         <td>
                             <a asp-action="Details" asp-route-id="@item.StudentId" style="font-size:10px" class="btn btn-warning">View</a>
                         </td>
-                        <td>
-                            <a asp-action="Delete" asp-route-id="@item.StudentId" style="font-size:10px" class="btn btn-danger">Delete</a>
-                        </td>
+                       
                     </tr>
                 }
             </tbody>

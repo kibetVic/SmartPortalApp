@@ -55,6 +55,12 @@ namespace SmartPortalApp.Controllers
             ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
             return View();
         }
+        public IActionResult StudentTransfer()
+        {
+            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
+            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
+            return View();
+        }
 
         // POST: Transfers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

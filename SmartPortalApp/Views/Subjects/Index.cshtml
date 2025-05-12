@@ -18,9 +18,7 @@
             <th>
                 Subject
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grade)
-            </th>
+           
             <th>
                 Edit
             </th>
@@ -39,9 +37,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grade.Name)
-            </td>
+          
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.SubjectId" style="font-size:10px" class="btn btn-primary">Edit</a>
                 </td>

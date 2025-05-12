@@ -17,7 +17,7 @@ namespace SmartPortalApp.Services
         public async Task<List<Subject>> GetAllAsync()
         {
             return await _context.Subjects
-                .Include(s => s.Grade)
+                
                 .ToListAsync();
         }
 
@@ -25,7 +25,7 @@ namespace SmartPortalApp.Services
         public async Task<Subject?> GetByIdAsync(int id)
         {
             return await _context.Subjects
-                .Include(s => s.Grade)
+               
                 .FirstOrDefaultAsync(s => s.SubjectId == id);
         }
 
@@ -44,7 +44,7 @@ namespace SmartPortalApp.Services
             if (existing == null) return false;
 
             existing.Name = subject.Name;
-            existing.GradeId = subject.GradeId;
+           
 
             await _context.SaveChangesAsync();
             return true;

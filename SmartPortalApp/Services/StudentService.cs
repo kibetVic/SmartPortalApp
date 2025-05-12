@@ -58,7 +58,7 @@ namespace SmartPortalApp.Services
             existing.OtherNames = student.OtherNames;
             existing.RegNo = student.RegNo;
             existing.CourseId = student.CourseId;
-            existing.Gender = student.Gender;
+            existing.GenderId = student.GenderId;
             existing.Email = student.Email;
             existing.PhoneNo = student.PhoneNo;
 

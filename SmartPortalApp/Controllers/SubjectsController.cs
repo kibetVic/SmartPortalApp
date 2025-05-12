@@ -22,7 +22,7 @@ namespace SmartPortalApp.Controllers
         // GET: Subjects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Subjects.Include(s => s.Grade);
+            var applicationDbContext = _context.Subjects;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,8 +35,7 @@ namespace SmartPortalApp.Controllers
             }
 
             var subject = await _context.Subjects
-                .Include(s => s.Grade)
-                .FirstOrDefaultAsync(m => m.SubjectId == id);
+                                .FirstOrDefaultAsync(m => m.SubjectId == id);
             if (subject == null)
             {
                 return NotFound();
@@ -65,7 +64,7 @@ namespace SmartPortalApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GradeId"] = new SelectList(_context.Grades, "GradeId", "Name", subject.GradeId);
+            ViewData["GradeId"] = new SelectList(_context.Grades);
             return View(subject);
         }
 
@@ -82,7 +81,7 @@ namespace SmartPortalApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["GradeId"] = new SelectList(_context.Grades, "GradeId", "Name", subject.GradeId);
+            ViewData["GradeId"] = new SelectList(_context.Grades);
             return View(subject);
         }
 
@@ -118,7 +117,7 @@ namespace SmartPortalApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GradeId"] = new SelectList(_context.Grades, "GradeId", "Name", subject.GradeId);
+            ViewData["GradeId"] = new SelectList(_context.Grades);
             return View(subject);
         }
 
@@ -131,7 +130,7 @@ namespace SmartPortalApp.Controllers
             }
 
             var subject = await _context.Subjects
-                .Include(s => s.Grade)
+                
                 .FirstOrDefaultAsync(m => m.SubjectId == id);
             if (subject == null)
             {
