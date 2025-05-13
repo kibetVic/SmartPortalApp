@@ -24,12 +24,7 @@
                     <th>
                         To Course
                     </th>
-                    <th>
-                        Upload KCSE Result
-                    </th>
-                    <th>
-                        Upload KCPE Result
-                    </th>
+                
                     <th>
                         @Html.DisplayNameFor(model => model.Reason)
                     </th>
@@ -42,15 +37,11 @@
                     <th>
                         Chairman Approval
                     </th>
-                    <th>
-                        Edit
-                    </th>
+                   
                     <th>
                         View
                     </th>
-                    <th>
-                        Delete
-                    </th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -61,17 +52,13 @@
                             @Html.DisplayFor(modelItem => item.Student.StudentId)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FromCourseId)
+                            @Html.DisplayFor(modelItem => item.FromCourse.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ToCourseId)
+                            @Html.DisplayFor(modelItem => item.ToCourse.Name)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UploadKCSEResult)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UploadKCPEResult)
-                        </td>
+                     
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.Reason)
                         </td>
@@ -84,15 +71,11 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ChairamnApproval)
                         </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-primary">Edit</a>
-                        </td>
+                      
                         <td>
                             <a asp-action="Details" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-warning">View</a>
                         </td>
-                        <td>
-                            <a asp-action="Delete" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-danger">Delete</a>
-                        </td>
+                       
                     </tr>
                 }
             </tbody>

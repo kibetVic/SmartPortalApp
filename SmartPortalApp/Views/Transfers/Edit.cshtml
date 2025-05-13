@@ -12,13 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TransferId" />
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="StudentId" class="control-label">Sur Name</label>
-                        <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
-                        <span asp-validation-for="StudentId" class="text-danger"></span>
-                    </div>
-                </div>
+             
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="FromCourseId" class="control-label">Current Course</label>
@@ -40,20 +34,7 @@
                         <span asp-validation-for="ToCourseId" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="UploadKCSEResult" class="control-label">Upload KCSE Result</label>
-                        <input asp-for="UploadKCSEResult" class="form-control" />
-                        <span asp-validation-for="UploadKCSEResult" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="UploadKCPEResult" class="control-label">Upload KCPE Result</label>
-                        <input asp-for="UploadKCPEResult" class="form-control" />
-                        <span asp-validation-for="UploadKCPEResult" class="text-danger"></span>
-                    </div>
-                </div>
+              
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="Reason" class="control-label"></label>
@@ -68,20 +49,8 @@
                         <span asp-validation-for="TransferStatus" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="DeanApproval" class="control-label">Dean Approva</label>
-                        <input asp-for="DeanApproval" class="form-control" />
-                        <span asp-validation-for="DeanApproval" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="ChairamnApproval" class="control-label">Chairman Approval</label>
-                        <input asp-for="ChairamnApproval" class="form-control" />
-                        <span asp-validation-for="ChairamnApproval" class="text-danger"></span>
-                    </div>
-                </div>
+              
+                
             </div>
             <div class="form-group">
                 <input type="submit" value="Update" class="btn btn-primary" />

@@ -18,26 +18,15 @@
             Current Course
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FromCourseId)
+            @Html.DisplayFor(model => model.FromCourse.Name)
         </dd>
         <dt class="col-sm-2">
             To Course
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ToCourseId)
+            @Html.DisplayFor(model => model.ToCourse.Name)
         </dd>
-        <dt class="col-sm-2">
-            Upload KCSE Result
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UploadKCSEResult)
-        </dd>
-        <dt class="col-sm-2">
-            Upload KCPE Result
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UploadKCPEResult)
-        </dd>
+    
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reason)
         </dt>

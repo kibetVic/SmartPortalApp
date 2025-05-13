@@ -22,7 +22,19 @@ namespace SmartPortalApp.Controllers
         // GET: Transfers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse);
+            int id = 0;
+            var userName = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == userName);
+                if (user != null)
+                {
+                    id = user.UserId; // Assuming Id is the int field you want
+                }
+            }
+            var studentId = await _context.Students.Where(s => s.UserId == id).Select(s => s.StudentId).FirstOrDefaultAsync();
+            var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse).Where(t=>t.StudentId== studentId);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,10 +60,22 @@ namespace SmartPortalApp.Controllers
         }
 
         // GET: Transfers/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo");
+            int id = 0;
+            var userName = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == userName);
+                if (user != null)
+                {
+                    id = user.UserId; // Assuming Id is the int field you want
+                }
+            }
+            var student= await _context.Students.FirstOrDefaultAsync(s => s.UserId == id);
+            ViewData["FromCourseId"] = new SelectList(_context.Courses.Where(d=>d.CourseId== student!.CourseId), "CourseId", "Name");
+            ViewData["StudentId"] = new SelectList(_context.Students.Where(s => s.UserId == id), "StudentId", "RegNo");
             ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name");
             return View();
         }
@@ -67,18 +91,77 @@ namespace SmartPortalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Transfer transfer)
+        public async Task<IActionResult> Create(Transfer transfer)
         {
-            if (ModelState.IsValid)
+            try { 
+                  if (ModelState.IsValid)
             {
-                _context.Add(transfer);
-                await _context.SaveChangesAsync();
+                    int id = 0;
+                    var userName = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+
+                    if (!string.IsNullOrEmpty(userName))
+                    {
+                        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == userName);
+                        if (user != null)
+                        {
+                            id = user.UserId; // Assuming Id is the int field you want
+                        }
+                    }
+                    var studentId = await _context.Students.Where(s => s.UserId == id).Select(s=>s.StudentId).FirstOrDefaultAsync();
+                    transfer.StudentId = studentId;
+                    var fromCourseGrade =await _context.Courses.Where(p=>p.CourseId==transfer.FromCourseId).Select(p=>p.KsceMeanGrade).FirstOrDefaultAsync();
+                    var toCourseGrade = await _context.Courses.Where(p => p.CourseId == transfer.ToCourseId).Select(p => p.KsceMeanGrade).FirstOrDefaultAsync();
+                    if (transfer.FromCourseId == transfer.ToCourseId)
+                    {
+                        ModelState.AddModelError("", $"Cannot transfer to the same course.");
+
+                        return View();
+                    }
+                    else if (fromCourseGrade == toCourseGrade)
+                    {
+                        var fromSubjects = await _context.CourseSubjects.Include(cs => cs.Subject).Include(cs => cs.Grade).Where(co => co.CourseId == transfer.FromCourseId).ToListAsync();
+                        var toSubjects = await _context.CourseSubjects.Include(cs => cs.Subject).Include(cs => cs.Grade).Where(co => co.CourseId == transfer.ToCourseId).ToListAsync();
+                        // Compare each subject in the target course with source course
+                        foreach (var toSubject in toSubjects)
+                        {
+                            var match = fromSubjects.FirstOrDefault(fs => fs.SubjectId == toSubject.SubjectId);
+
+                            if (match == null)
+                            {
+                                //ModelState.AddModelError("", $"Subject with ID {toSubject.SubjectId} is not in the original course.");
+                                ModelState.AddModelError("", $"Subject '{toSubject.Subject?.Name}' is missing in the original course.");
+
+                                return View();
+                            }
+
+                            if (match.GradeId != toSubject.GradeId)
+                            {
+                                //ModelState.AddModelError("", $"Grade for subject {toSubject.SubjectId} does not match.");
+                                ModelState.AddModelError("", $"Grade for subject '{toSubject.Subject?.Name}' is missing in the original course.");
+
+                                return View();
+                            }
+                        }
+                        _context.Add(transfer);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", $"KSCE Mean grade of {toCourseGrade} is required.");
+                        return View();
+                    }
+
+                        await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
             ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
             ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
             return View(transfer);
+        }
+              catch (Exception ex)
+            {
+                return View(transfer);
+            }
         }
 
         // GET: Transfers/Edit/5

@@ -55,8 +55,7 @@ namespace SmartPortalApp.Services
 
             existing.FromCourseId = transfer.FromCourseId;
             existing.ToCourseId = transfer.ToCourseId;
-            existing.UploadKCSEResult = transfer.UploadKCSEResult;
-            existing.UploadKCPEResult = transfer.UploadKCPEResult;
+           
             existing.Reason = transfer.Reason;
             existing.TransferStatus = transfer.TransferStatus;
             existing.DeanApproval = transfer.DeanApproval;
