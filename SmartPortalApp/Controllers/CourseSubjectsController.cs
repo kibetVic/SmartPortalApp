@@ -22,7 +22,11 @@ namespace SmartPortalApp.Controllers
         // GET: CourseSubjects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CourseSubjects.ToListAsync());
+            return View(await _context.CourseSubjects
+                 .Include(t => t.Course)
+                .Include(t => t.Subject)
+                .Include(t => t.Grade)
+                .ToListAsync());
         }
 
         // GET: CourseSubjects/Details/5
