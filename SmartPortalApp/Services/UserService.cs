@@ -31,6 +31,28 @@ namespace SmartPortalApp.Services
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
+            var newUserId = newUser.UserId;
+            if (newUser.RoleId == 2)
+            {
+                var courses =await _context.Courses.ToListAsync();
+                if (courses.Count == 0)
+                {
+                    return false;
+                }
+                else 
+                {
+                   
+                    var newStudent = new Student
+                    {
+                        UserId = newUserId,
+                        CourseId = 1,
+                    };
+                    _context.Students.Add(newStudent);
+                    await _context.SaveChangesAsync();
+                }
+
+                 
+            }
             return true;
         }
 
