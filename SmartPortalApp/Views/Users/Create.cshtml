@@ -41,45 +41,45 @@
     <style>
         /* Make the container fill the screen */
         .Signup-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Full viewport height */
-            background-color: #f8f9fa; /* Light background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Full viewport height */
+        background-color: #f8f9fa; /* Light background */
         }
 
         /* Style the Signup box */
         .Signup-box {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
-            text-align: center;
-            width: 100%;
-            max-width: 400px; /* Limit maximum width */
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+        text-align: center;
+        width: 100%;
+        max-width: 400px; /* Limit maximum width */
         }
 
         /* Style the form controls */
         .form-control {
-            margin-bottom: 15px;
+        margin-bottom: 15px;
         }
 
         button {
-            width: 100px;
-            margin: 5px;
+        width: 100px;
+        margin: 5px;
         }
 
         /* Style for the Sign In prompt to be on one line */
         .form-check p {
-            display: inline; /* Make <p> element behave like inline */
+        display: inline; /* Make <p> element behave like inline */
             margin-right: 5px; /* Add space between the text and the link */
-        }
+            }
 
-        .form-check a.nav-link {
+            .form-check a.nav-link {
             display: inline; /* Ensure the link is inline with the text */
             padding: 0; /* Remove padding from the link */
             text-decoration: none; /* Optional: Remove underline from the link */
-        }
+            }
     </style>
 </head>
 <body>
@@ -103,8 +103,10 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="RoleId" class="control-label">Role</label>
-                            <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                            <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"  id="RoleId"></select>
                         </div>
+                    
+                        
                         <div class="form-group">
                             <label asp-for="Password" class="control-label">Passord</label>
                             <input asp-for="Password" class="form-control" type="password" />
