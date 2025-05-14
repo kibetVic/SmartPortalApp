@@ -153,7 +153,7 @@
                         @if (@User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Role)?.Value == "ADMIN")
                         {
                             <li class="nav-item">
-                                <a asp-controller="Transfers" asp-action="Index" class="nav-link">
+                                <a asp-controller="Transfers" asp-action="StudentTransfers" class="nav-link">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                     <p>
                                         Transfers

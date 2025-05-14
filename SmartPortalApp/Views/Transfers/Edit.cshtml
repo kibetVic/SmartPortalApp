@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TransferId" />
             <div class="row">
-             
+                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="FromCourseId" class="control-label">Current Course</label>
@@ -29,23 +29,41 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="ToCourseId" class="control-label">To Course</label>
-                        <input asp-for="ToCourseId" class="form-control" />
-                        <span asp-validation-for="ToCourseId" class="text-danger"></span>
+                        <label asp-for="ChairamnApproval" class="control-label">Department ChairmanApproval</label>
+                         <select asp-for="ChairamnApproval" class="form-control">
+                             <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Declined">Declined</option>
+                          </select>
+                        <span asp-validation-for="ChairamnApproval" class="text-danger"></span>
                     </div>
                 </div>
-              
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="DeanApproval" class="control-label">Dean Approval</label>
+                        <select asp-for="DeanApproval" class="form-control">
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Declined">Declined</option>
+                        </select>
+                        <span asp-validation-for="DeanApproval" class="text-danger"></span>
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="Reason" class="control-label"></label>
-                        <input asp-for="Reason" class="form-control" />
+                        <input asp-for="Reason" readonly="true" class="form-control" />
                         <span asp-validation-for="Reason" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label asp-for="TransferStatus" class="control-label">Status</label>
-                        <input asp-for="TransferStatus" class="form-control" />
+                        <select asp-for="TransferStatus" class="form-control">
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Declined">Declined</option>
+                        </select>
                         <span asp-validation-for="TransferStatus" class="text-danger"></span>
                     </div>
                 </div>

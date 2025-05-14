@@ -37,6 +37,12 @@ namespace SmartPortalApp.Controllers
             var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse).Where(t=>t.StudentId== studentId);
             return View(await applicationDbContext.ToListAsync());
         }
+        public async Task<IActionResult> StudentTransfers()
+        {
+            
+            var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
         // GET: Transfers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -93,9 +99,9 @@ namespace SmartPortalApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Transfer transfer)
         {
-            try { 
-                  if (ModelState.IsValid)
-            {
+            try {
+                if (ModelState.IsValid)
+                {
                     int id = 0;
                     var userName = User.FindFirst(claim => claim.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
 
@@ -107,9 +113,17 @@ namespace SmartPortalApp.Controllers
                             id = user.UserId; // Assuming Id is the int field you want
                         }
                     }
-                    var studentId = await _context.Students.Where(s => s.UserId == id).Select(s=>s.StudentId).FirstOrDefaultAsync();
+                    var studentId = await _context.Students.Where(s => s.UserId == id).Select(s => s.StudentId).FirstOrDefaultAsync();
                     transfer.StudentId = studentId;
-                    var fromCourseGrade =await _context.Courses.Where(p=>p.CourseId==transfer.FromCourseId).Select(p=>p.KsceMeanGrade).FirstOrDefaultAsync();
+                    var existingTransfers = await _context.Transfers.Where(us => us.StudentId == transfer.StudentId && us.TransferStatus == "Pending").ToListAsync();
+                    if (existingTransfers.Any())
+                    {
+                        ModelState.AddModelError("", $"There is a pending transfer at the moment");
+                    }
+                    else
+                    {
+                    
+                    var fromCourseGrade = await _context.Courses.Where(p => p.CourseId == transfer.FromCourseId).Select(p => p.KsceMeanGrade).FirstOrDefaultAsync();
                     var toCourseGrade = await _context.Courses.Where(p => p.CourseId == transfer.ToCourseId).Select(p => p.KsceMeanGrade).FirstOrDefaultAsync();
                     if (transfer.FromCourseId == transfer.ToCourseId)
                     {
@@ -142,14 +156,14 @@ namespace SmartPortalApp.Controllers
                                 return View();
                             }
                         }
-                        _context.Add(transfer);
+                        _context.Transfers.Add(transfer);
                     }
                     else
                     {
                         ModelState.AddModelError("", $"KSCE Mean grade of {toCourseGrade} is required.");
                         return View();
                     }
-
+                }
                         await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -177,9 +191,10 @@ namespace SmartPortalApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
-            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
+            
+            ViewData["FromCourseId"] = new SelectList(_context.Courses.Where(g=>g.CourseId==transfer.FromCourseId), "CourseId", "Name", transfer.FromCourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students.Where(ss=>ss.StudentId==transfer.StudentId), "StudentId", "RegNo", transfer.StudentId);
+            ViewData["ToCourseId"] = new SelectList(_context.Courses.Where(gg => gg.CourseId == transfer.ToCourseId), "CourseId", "Name", transfer.ToCourseId);
             return View(transfer);
         }
 
@@ -190,35 +205,35 @@ namespace SmartPortalApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Transfer transfer)
         {
-            if (id != transfer.TransferId)
+            try 
             {
-                return NotFound();
-            }
+                if (id != transfer.TransferId)
+                {
+                    return NotFound();
+                }
+                var studentDetails =await _context.Transfers.FirstOrDefaultAsync(v=>v.TransferId==id);
+                // Detach the tracked entity to avoid tracking conflict
+                _context.Entry(studentDetails!).State = EntityState.Detached;
+                transfer.StudentId = studentDetails!.StudentId;
+                if (ModelState.IsValid)
+                {
+                    
+                        _context.Update(transfer);
+                        await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(StudentTransfers));
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(transfer);
-                    await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransferExists(transfer.TransferId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
+                ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
+                ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
+                return View(transfer);
             }
-            ViewData["FromCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.FromCourseId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "RegNo", transfer.StudentId);
-            ViewData["ToCourseId"] = new SelectList(_context.Courses, "CourseId", "Name", transfer.ToCourseId);
-            return View(transfer);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error occured");
+                return View();
+            }
+            
         }
 
         // GET: Transfers/Delete/5

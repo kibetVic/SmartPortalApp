@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SmartPortalApp.Models.Transfer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Application</a>
+</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Aplication</h3>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr style="font-size:10px">
+                    <th>
+                        Student
+                    </th>
+                    <th>
+                        Current Course
+                    </th>
+                    <th>
+                        To Course
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+                    <th>
+                        Transfer Status
+                    </th>
+                    <th>
+                        Dean Approval
+                    </th>
+                    <th>
+                        Chairman Approval
+                    </th>
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        View
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="font-size:10px">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.StudentId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FromCourse.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToCourse.Name)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransferStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeanApproval)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChairamnApproval)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.TransferId" style="font-size:10px" class="btn btn-warning">View</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</<div>
+</div>
