@@ -19,12 +19,20 @@
                         Student
                     </th>
                     <th>
+                        RegNo
+                    </th>
+                    <th>
                         Current Course
                     </th>
                     <th>
                         To Course
                     </th>
-
+                    <th>
+                        KCPE
+                    </th>
+                    <th>
+                        KCSE
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Reason)
                     </th>
@@ -54,12 +62,38 @@
                             @Html.DisplayFor(modelItem => item.Student.StudentId)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Student.RegNo)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.FromCourse.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ToCourse.Name)
                         </td>
-
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Student.UploadKCPE))
+                            {
+                                <a href="@item.Student.UploadKCPE" target="_blank" title="View KCPE Document">
+                                    <i class="fas fa-file-pdf text-danger"></i> <!-- Font Awesome icon -->
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No file</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Student.UploadKCSE))
+                            {
+                                <a href="@item.Student.UploadKCSE" target="_blank" title="View KCSE Document">
+                                    <i class="fas fa-file-pdf text-danger"></i> <!-- Font Awesome icon -->
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No file</span>
+                            }
+                        </td>
 
                         <td>
                             @Html.DisplayFor(modelItem => item.Reason)

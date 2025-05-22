@@ -41,6 +41,7 @@ namespace SmartPortalApp.Controllers
         {
             
             var applicationDbContext = _context.Transfers.Include(t => t.FromCourse).Include(t => t.Student).Include(t => t.ToCourse);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
